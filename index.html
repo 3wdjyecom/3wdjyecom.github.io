@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="breader的小站">
+    <title>breader的小站</title>
+    <style>
+    .butt {
+        position: absolute;
+        height: 200px;
+        width: 275px;
+        left: 50%;
+        top: 50%;
+        margin: auto;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.2); 
+        border-radius: 20px;
+        padding: 35px;
+        transform: translate(-50% , -50%);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
+      .top {
+        position: absolute;
+        height: 150px;
+        width: 100%;
+        background-color: #4e504dab;
+        text-align: left;
+        color: white;
+        font: 1em sans-serif;
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        }
+        .button {
+          background-color:red; /* 绿色 */
+          border: none;
+          color: white;
+          padding: 15px 64px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+          width: 278px;
+          filter: blur(0px);
+        }
+
+      </style>
+</head>
+<body>
+    <div class="top">
+        <h2>breader的小站</h2>
+        <iframe width="430" scrolling="no" height="25" frameborder="0" allowtransparency="true" src="https://i.tianqi.com?c=code&id=1&color=%23FFFFFF&icon=4&py=yingkou&site=12"></iframe>
+        <h3 id="data" style="color: red;"></h3>
+    </div>
+    <div class="butt">
+        <h3 id="updateDateTime"></h3>
+        <a href="https://liubaiqian.github.io/"><button class="button"  >FH3718的站</button><br></a>
+        <a href="https://3wdjyecom.github.io/middleschoollife0901/"><button class="button"  >中学回忆</button><br></a>
+        <a href="https://3wdjyecom.github.io/English/"><button class="button"  >听力</button><br></a>
+
+    </div>
+    
+    <script>
+        function getRandomBackgroundImage(isMobile) {
+            // 定义不同设备的背景图片列表
+            const mobileImages = ['./bgmo/3.jpg', './bgmo/1.jpg', './bgmo/2.jpg', './bgmo/4.jpg', './bgmo/5.jpg']; // 手机端背景图片列表
+            const desktopImages = ['./bg/1.jpg', './bg/2.jpg', './bg/3.jpg', './bg/4.jpg', './bg/5.jpg', './bg/6.jpg', './bg/7.jpg', './bg/8.jpg']; // PC端背景图片列表
+
+            // 选择对应设备的图片列表
+            const images = isMobile ? mobileImages : desktopImages;
+
+            // 随机选择一张图片
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+            document.body.style.backgroundImage = 'url("' + randomImage + '")';
+        }
+
+        function detectDeviceAndSetRandomBackground() {
+            const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+            getRandomBackgroundImage(isMobile);
+        }
+
+        // 页面加载完成后执行检测并更改背景
+        window.onload = detectDeviceAndSetRandomBackground;
+
+        // 中考倒计时
+        var countdownElement = document.getElementById("data");
+        var countdownDate = 1750435200000; // 确保时间戳正确
+        var x = setInterval(function () {
+            var now = new Date().getTime();
+            var distance = countdownDate - now;
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            var ms = Math.floor((distance % (1000)));
+            countdownElement.innerHTML = "距离中考还有" + days + " 天 " + hours + " 小时 " + minutes + " 分 " + seconds + " 秒 ";
+            if (distance < 0) {
+                clearInterval(x);
+                countdownElement.innerHTML = "就是今天！";
+                countdownElement.style.color = "#000";
+            }
+        }, 1000); // 修改为每秒更新一次
+
+        // 更新日期和时间
+        function updateDateTime() {
+            var now = new Date();
+            var dateTimeString = now.toLocaleString(); // 使用本地日期和时间格式
+            document.getElementById('updateDateTime').textContent = dateTimeString;
+        }
+
+        // 更新日期和时间每秒一次
+        setInterval(updateDateTime, 1000);
+
+        // 初始调用以显示页面加载时的日期和时间
+        updateDateTime();
+    </script>
+</body>
+</html>
